@@ -31,20 +31,48 @@ $(document).ready(function () {
     $(this).find('.service-cover').slideToggle();
   });
 
-  $('#url-submit').click(function(e) {
-    $('#log-text').empty()
-    $('#log-text').hide()
-    $('#ajax-waiter').show()
-    $('#url-submit').attr('disabled', 'disabled');
+  $('#upload').click(function(e) {
+    event.preventDefault();
+    var formElement = document.querySelector("form");
+    var formData = new FormData(formElement);
+    $('#upload').attr('disabled', 'disabled');
+    $('#ajax-waiter').show();
     $.ajax({
-      url: "/test",
+      url: "/upload",
       method: "POST",
-      data: {"url": $('#url-area').val()}
+      contentType: false,
+      processData: false,
+      data: formData,
     }).done(function(data, status) {
-      $('#log-text').addClass('log-text').html(data);
-      $('#log-text').show()
-      $('#ajax-waiter').hide()
-      $('#url-submit').removeAttr('disabled');
+      $('#ajax-waiter').hide();
+      $("#music").css("display","inline");
+      $("#analyze").show();
+      $('#analyze-result').val('');
+      $('#analyze-result').hide();
+      $('#upload').attr('disabled', false);
+
+      var audio = $('#music');
+      $("#music-source").attr("src", data);
+      /****************/
+      audio[0].pause();
+      audio[0].load();
+      /****************/
+    });
+  });
+
+  $('#analyze-btn').click(function(e) {
+    $('#ajax-waiter').show();
+    $('#analyze-btn').attr('disabled', 'disabled');
+    var src = $("#music-source").attr("src").split("/");
+    var name = src[src.length - 1];
+    $.ajax({
+      url: "/analyze/" + name,
+      method: "GET",
+    }).done(function(data, status) {
+      $('#ajax-waiter').hide();
+      $('#analyze-btn').attr('disabled', false);
+      $('#analyze-result').val(data);
+      $('#analyze-result').show();
     });
   });
 });

@@ -1,13 +1,14 @@
 div#section-2
-    div#music-form.col-md-offset-4.server-uri
-      input#url-area(type="text", name="ird-url", placeHolder="Paste IRD url of your ALTO server here")
-      input#url-submit(type="submit", value="Test").btn-danger.test-btn
-      div#ajax-waiter
+    div#music-form
+      form#upload-form(enctype="multipart/form-data")
+        input#choosefile(type="file", name="audio")
+        input#upload(type="submit", value="Upload").btn-danger
+      audio#music(controls)
+        source#music-source(src="/music/sample.wav" type="audio/wav")
+        Your browser does not support the audio element.
+      div#analyze
+        input#analyze-btn(type="submit", value="Analyze").btn-danger
+      div
+        input#analyze-result(type="textarea", placeHolder="Result will be displayed here")
+      #ajax-waiter
         img(src="/images/ajax_loader.gif")
-    pre#log-text
-    div.steps.col-md-offset-4
-      h2.section-title Steps
-      p 1. Load data
-      p 2. train models
-      p 3. Test
-  pre#log-text
