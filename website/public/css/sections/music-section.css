@@ -1,5 +1,5 @@
 .nav-item a {
-   width: 50%;
+  width: 50%;
 }
 
 #hello {
@@ -12,14 +12,21 @@
   overflow: auto
 }
 
-#section-1 .section-content {
-  height: auto;
-  margin-bottom: 50px;
+#section-2 {
+  margin-top: 20px;
+  overflow: auto
 }
 
-#section-2 {
-  background-color: #DDD;
+.section-content {
+  width: 50%;
+  margin-bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#section-3 {
   overflow: auto;
+  background-color: #DDD;
 }
 
 .content-wrapper {
@@ -95,23 +102,6 @@
   display: none;
 }
 
-#log-text {
-  width: 50%;
-  max-height: 400px;
-  background-color: #EEE;
-  margin: 0 auto;
-  margin-bottom: 80px;
-  padding: 8px;
-  padding: 10px;
-  color: #000;
-  display: none;
+#content {
+  font-size: 1em;
 }
-
-#section-1 .server-company-name-padding {
-  padding-left:30px;
-}
-
-#section-1 .client-company-name-padding {
-  padding-left:20px;
-}
-

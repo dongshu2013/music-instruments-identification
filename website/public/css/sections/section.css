@@ -8,14 +8,14 @@
 
 .section-title-wrap {
   margin-top: 30px;
-  text-align:center;
+  text-align: center;
 }
 
 .section-title {
   font-family: "Verdana";
   font-weight: 300;
-  font-size: 1.7em;
-  color:#333333;
+  font-size: 1.2em;
+  color: #333333;
 }
 
 .section-content {

@@ -1,5 +1,12 @@
 div#section-1
-  div.section-content.col-md-offset-4
-    h2.section-title What is it?
-      p a system which can identify the instrument in
-        solo or some other monophonic music.
+  div.section-content
+    div.section-block
+      h3.section-title Why is interesting
+      p#content Musical Instrument Identification is not only an interesting topic, but also has widely use in daily life. Firstly, it will help music engines to deal better with queries on specific music. Secondly, for those people who are not an expert in recognizing instruments’ sound, but curious about which instrument a music is played by, an automatic instrument identification system will definitely satisfying them. Furthermore, it may contribute a lot to other musical information processing problem.
+    div.section-block
+      h3.section-title System Description
+      p#content Basically, the system’s work consists of two phases: model generation and identifying instruments, of which only the later is facing to users.
+      h3.section-title Measure used to evaluate performance
+      p#content We will use Precision, Recall and Fscore as measures to evaluate the performance of our system.
+      h3.section-title Dataset
+      p#content We will split the MIS dataset from University of Iowa (http://theremin.music.uiowa.edu/MIS.html) to two parts, as train and test data.

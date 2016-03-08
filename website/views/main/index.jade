@@ -10,7 +10,9 @@ block top-navbar
     div.nav-item.col-xs-2.col-sm-2.col-xs-2
       a(href="#", onclick="$('#section-1').animatescroll({padding:80});") Introduction
     div.nav-item.col-md-2.col-sm-2.col-xs-2
-      a(href="#", onclick="$('#section-2').animatescroll({padding:80});") Try it out!
+      a(href="#", onclick="$('#section-2').animatescroll({padding:80});") Progress
+    div.nav-item.col-md-2.col-sm-2.col-xs-2
+      a(href="#", onclick="$('#section-3').animatescroll({padding:80});") Try it out!
     div.nav-logo.col-xs-4
 
 block header
@@ -18,6 +20,7 @@ block header
 block content
   div#hello
     include sections/server-client
+    include sections/progress
     include sections/online-test
   p#back-top
     span
