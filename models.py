@@ -24,7 +24,7 @@ class Models():
                 return OneVsRestClassifier(linear_model.LogisticRegression(C=1e5))
             else:
                 return linear_model.LogisticRegression(C=1e5)
-        elif name == "lsvm"
+        elif name == "lsvm":
             if multiclass:
                 return OneVsRestClassifier(LinearSVC(random_state=0))
             else:

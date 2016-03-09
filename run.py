@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Feb 01 14:42:11 2016
-
-@author: Shu Dong
-"""
 import sys
 
 import numpy as np
@@ -16,10 +10,10 @@ from sklearn import metrics
 import argparse
 from models import Models
 
-parser = argparse.ArgumentParser(description='Used to training features.')
-parser.add_argument('--feature', metavar='F', nargs=1, help='specify file containing feature matrix')
-parser.add_argument('--label', metavar="L", nargs=1, help='specify file containing labels matrix')
-args = parser.parse_args()
+#parser = argparse.ArgumentParser(description='Used to training features.')
+#parser.add_argument('--feature', metavar='F', nargs=1, help='specify file containing feature matrix')
+#parser.add_argument('--label', metavar="L", nargs=1, help='specify file containing labels matrix')
+#args = parser.parse_args()
 
 FOLD = 10
 
@@ -33,9 +27,12 @@ def mean(l):
     return reduce(lambda x, y: x + y, l) / len(l)
 
 
-def generate_train_test_set(feature, label):
-    X = load_sparse_csr(feature);
-    Y = np.load(label)
+#def generate_train_test_set(feature, label):
+#    X = load_sparse_csr(feature);
+#    Y = np.load(label)
+#    return cross_validation.train_test_split(X, Y, test_size=0.4, random_state=0)
+
+def generate_train_test_set(X, Y):
     return cross_validation.train_test_split(X, Y, test_size=0.4, random_state=0)
 
 
@@ -52,6 +49,7 @@ def train(models, x_train, y_train):
             model = models.get_model(m)
             model.fit(x, y)
             yp = model.predict(xt)
+            meta[m] = {}
             meta[m]["report"] = metrics.classification_report(yt, yp)
             meta[m]["accuracy"] = metrics.accuracy_score(yt, yp)
             meta[m]["precision"] = metrics.precision_score(yt, yp, average='weighted')
@@ -66,15 +64,15 @@ def print_meta(meta):
         print m
         print "****"
         print "Report:"
-        print meta[m]['report'][i]
+        print meta[m]['report']
         print "Accuracy:"
-        print meta[m]['accuracy'][i]
+        print meta[m]['accuracy']
         print "Precision:"
-        print meta[m]['precision'][i]
+        print meta[m]['precision']
         print "Recall:"
-        print meta[m]['recall'][i]
+        print meta[m]['recall']
         print "F-Score:"
-        print meta[m]['fscore'][i]
+        print meta[m]['fscore']
 
 
 def test(models, x_train, y_train, x_test, y_test):
@@ -92,12 +90,19 @@ def test(models, x_train, y_train, x_test, y_test):
 
 
 def main():
-    x_train, x_test, y_train, y_test = generate_train_test_set(args['feature'], args['label'])
+    data = np.load("./feature/mfcc_dim10x13_training_norm.npz")
+    features = data['features']
+    labels = data['labels']
+    features = features + 10 * np.ones(features.shape);
+    #x_train, x_test, y_train, y_test = generate_train_test_set(args['feature'], args['label'])
+    x_train, x_test, y_train, y_test = generate_train_test_set(features, labels)
     model_names = ["nb", "svm",  "lsvm", "lr"]
-    model = Model(model_names)
-    train_result = train(modle, x_train, y_train)
+    model = Models(model_names)
+    train_result = train(model, x_train, y_train)
     for meta in train_result:
+        print "------------------------------"
         print_meta(meta)
+        print "------------------------------"
 
 
 if __name__ == "__main__":
