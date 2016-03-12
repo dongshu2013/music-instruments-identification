@@ -6,9 +6,13 @@ from scipy.sparse.csr import csr_matrix
 from sklearn.cross_validation import StratifiedKFold
 from sklearn import cross_validation
 from sklearn import metrics
+from sklearn.preprocessing import Normalizer, LabelEncoder, MinMaxScaler
+from sklearn.decomposition import PCA
+from sklearn.lda import LDA
 
 import argparse
 from models import Models
+from functools import reduce
 
 #parser = argparse.ArgumentParser(description='Used to training features.')
 #parser.add_argument('--feature', metavar='F', nargs=1, help='specify file containing feature matrix')
@@ -20,7 +24,7 @@ FOLD = 10
 def load_sparse_csr(filename):
     loader = np.load(filename)
     return csr_matrix((loader['data'], loader['indices'], loader['indptr']),
-                       shape = loader['shape'])
+            shape = loader['shape'])
 
 
 def mean(l):
@@ -33,7 +37,7 @@ def mean(l):
 #    return cross_validation.train_test_split(X, Y, test_size=0.4, random_state=0)
 
 def generate_train_test_set(X, Y):
-    return cross_validation.train_test_split(X, Y, test_size=0.4, random_state=0)
+    return cross_validation.train_test_split(X, Y, test_size=0.2, random_state=0)
 
 
 def train(models, x_train, y_train):
@@ -59,28 +63,49 @@ def train(models, x_train, y_train):
     return train_result
 
 
-def print_meta(meta):
-    for m in meta.keys():
-        print m
-        print "****"
-        print "Report:"
-        print meta[m]['report']
-        print "Accuracy:"
-        print meta[m]['accuracy']
-        print "Precision:"
-        print meta[m]['precision']
-        print "Recall:"
-        print meta[m]['recall']
-        print "F-Score:"
-        print meta[m]['fscore']
+def print_meta(train_result):
+    mean = {}
+    for meta in train_result:
+        print("------------------------------")
+        for m in meta.keys():
+            mean.setdefault(m, {})
+            mean[m].setdefault('accuracy', [])
+            mean[m].setdefault('precision', [])
+            mean[m].setdefault('recall', [])
+            mean[m].setdefault('fscore', [])
+            print(m)
+            print("****")
+            print("Report:")
+            print(meta[m]['report'])
+            print("Accuracy:")
+            mean[m]['accuracy'].append(meta[m]['accuracy'])
+            print(meta[m]['accuracy'])
+            print("Precision:")
+            mean[m]['precision'].append(meta[m]['precision'])
+            print(meta[m]['precision'])
+            print("Recall:")
+            mean[m]['recall'].append(meta[m]['recall'])
+            print(meta[m]['recall'])
+            print("F-Score:")
+            mean[m]['fscore'].append(meta[m]['fscore'])
+            print(meta[m]['fscore'])
+        print("------------------------------")
+    print_mean(mean)
+
+
+def print_mean(m):
+    for key, value in m.items():
+        for metric, seq in value.items():
+            print(key + "." + metric + ":" + str(mean(seq)))
 
 
 def test(models, x_train, y_train, x_test, y_test):
     test_result = {}
     for m in models.model_names():
+        test_result[m] = {}
         model = models.get_model(m)
         model.fit(x_train, y_train)
-        yp = model.predict(y_test)
+        yp = model.predict(x_test)
         test_result[m]["report"] = metrics.classification_report(y_test, yp)
         test_result[m]["accuracy"] = metrics.accuracy_score(y_test, yp)
         test_result[m]["precision"] = metrics.precision_score(y_test, yp, average='weighted')
@@ -89,21 +114,60 @@ def test(models, x_train, y_train, x_test, y_test):
     return test_result
 
 
-def main():
-    data = np.load("./feature/mfcc_dim10x13_training_norm.npz")
-    features = data['features']
-    labels = data['labels']
-    features = features + 10 * np.ones(features.shape);
-    #x_train, x_test, y_train, y_test = generate_train_test_set(args['feature'], args['label'])
-    x_train, x_test, y_train, y_test = generate_train_test_set(features, labels)
-    model_names = ["nb", "svm",  "lsvm", "lr"]
-    model = Models(model_names)
-    train_result = train(model, x_train, y_train)
-    for meta in train_result:
-        print "------------------------------"
-        print_meta(meta)
-        print "------------------------------"
+def run(x_train, x_test, y_train, y_test, models):
+    train_result = train(models, x_train, y_train)
+    test_result = test(models, x_train, y_train, x_test, y_test)
+    print_meta(test_result)
+#    for meta in train_result:
+#        print "------------------------------"
+#        print_meta(meta)
+#        print "------------------------------"
 
+def run2(x_train, x_test, y_train, y_test, models):
+    print("xxx")
+
+
+def feature_label(features):
+    labels = features[:,0].reshape(-1)
+    return normalize(features[:,1:]), labels
+
+
+def normalize(features):
+    nm = Normalizer()
+    min_max_scaler = MinMaxScaler()
+    features = nm.fit_transform(features)
+    return min_max_scaler.fit_transform(features)
+
+
+def main():
+    model_names = ["nb", "svm",  "lsvm", "lr"]
+    models = Models(model_names)
+
+    data = np.load("./mfcc/mfcc_dim10x13.train.npz")
+    features = np.array(data['mfcc_features'])
+    x_train, y_train = feature_label(features)
+
+    data = np.load("./mfcc/mfcc_dim10x13.test.npz")
+    features = np.array(data['mfcc_features'])
+    x_test, y_test = feature_label(features)
+
+    #PCA
+    features = np.concatenate((x_train, x_test))
+    pca = PCA(n_components = 130)
+    features = normalize(pca.fit_transform(features))
+
+    labels = np.concatenate((y_train, y_test))
+    for l in labels:
+        print(l)
+
+    #LDA
+    #features = np.concatenate((x_train, x_test))
+    #lda = LDA()
+    #features = normalize(lda.fit_transform(features, labels))
+
+    train_result = train(models, features, labels)
+    print_meta(train_result)
+    print(features.shape)
 
 if __name__ == "__main__":
     main()

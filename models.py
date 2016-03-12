@@ -18,10 +18,10 @@ class Models():
         if name == "nb":
             return MultinomialNB()
         elif name == "svm":
-            return OneVsRestClassifier(SVC()) if multiclass else SVC()
+            return OneVsRestClassifier(SVC(kernel='poly', class_weight='balanced')) if multiclass else SVC()
         elif name == "lr":
             if multiclass:
-                return OneVsRestClassifier(linear_model.LogisticRegression(C=1e5))
+                return OneVsRestClassifier(linear_model.LogisticRegression(class_weight='balanced'))
             else:
                 return linear_model.LogisticRegression(C=1e5)
         elif name == "lsvm":
