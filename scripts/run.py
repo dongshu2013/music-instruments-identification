@@ -8,11 +8,12 @@ from sklearn import cross_validation
 from sklearn import metrics
 from sklearn.preprocessing import Normalizer, LabelEncoder, MinMaxScaler
 from sklearn.decomposition import PCA
-from sklearn.lda import LDA
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
 import argparse
 from models import Models
 from functools import reduce
+from load_features import load_features
 
 #parser = argparse.ArgumentParser(description='Used to training features.')
 #parser.add_argument('--feature', metavar='F', nargs=1, help='specify file containing feature matrix')
@@ -143,31 +144,37 @@ def main():
     model_names = ["nb", "svm",  "lsvm", "lr"]
     models = Models(model_names)
 
-    data = np.load("./mfcc/mfcc_dim10x13.train.npz")
-    features = np.array(data['mfcc_features'])
-    x_train, y_train = feature_label(features)
-
-    data = np.load("./mfcc/mfcc_dim10x13.test.npz")
-    features = np.array(data['mfcc_features'])
-    x_test, y_test = feature_label(features)
-
-    #PCA
-    features = np.concatenate((x_train, x_test))
-    pca = PCA(n_components = 130)
-    features = normalize(pca.fit_transform(features))
-
-    labels = np.concatenate((y_train, y_test))
-    for l in labels:
-        print(l)
-
+#    data = np.load("../feature/mfcc/mfcc_dim10x13.train.npz")
+#    features = np.array(data['mfcc_features'])
+#    x_train, y_train = feature_label(features)
+#
+#    data = np.load("../feature/mfcc/mfcc_dim10x13.test.npz")
+#    features = np.array(data['mfcc_features'])
+#    x_test, y_test = feature_label(features)
+#
+#    #PCA
+#    features = np.concatenate((x_train, x_test))
+#    pca = PCA(n_components = 130)
+#    features = normalize(pca.fit_transform(features))
+#
+#    labels = np.concatenate((y_train, y_test))
+#    for l in labels:
+#        print(l)
+#
     #LDA
     #features = np.concatenate((x_train, x_test))
-    #lda = LDA()
+    #lda = LinearDiscriminantAnalysis()
     #features = normalize(lda.fit_transform(features, labels))
+    features = load_features()
+    print features.shape
+    print features
+    x_test, y_test = feature_label(features)
+    print x_test.shape
+    print y_test.shape
 
-    train_result = train(models, features, labels)
-    print_meta(train_result)
-    print(features.shape)
+#    train_result = train(models, features, labels)
+#    print_meta(train_result)
+#    print(features.shape)
 
 if __name__ == "__main__":
     main()
