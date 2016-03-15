@@ -2,7 +2,7 @@
   position: fixed;
   top: 0px;
   width: 100%;
-  height: 80px;
+  height: 50px;
   background-color: rgba(255, 255, 255, 0.87);
   border-color: #CCC;
   z-index: 99;
@@ -10,17 +10,24 @@
 
 .nav-item {
   padding: 0px;
-  margin-top: 28px;
+  border-left-style: solid;
+  border-left-color: #EEE;
+  border-left-width: 1px;
+  text-align: center;
+  position: relative;
+  height: 50px;
+  line-height: 50px;
 }
 
 .nav-item a {
   display: inline-block;
+  vertical-align: middle;
   text-decoration: none;
-  text-align: center;
   color: #666;
   font-family: "Verdana";
-  font-weight: 400;
-  font-size: 18px;
+  font-weight: bold;
+  font-size: 13px;
+  width: 100%;
 }
 
 .nav-item:after {
@@ -29,11 +36,19 @@
   display: inline-block;
 }
 
+.nav-item:hover {
+  background-color: #EEE;
+}
+
+.nav-logo {
+  height: 50px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 40px;
+}
+
 #logo-image {
-  padding-left: 15px;
-  padding-top: 10px;
-  width: auto;
-  height: 70px;
+  height: 40px;
 }
 
 #image-header {
@@ -53,39 +68,6 @@
   margin-bottom: 0px;
   font-size: 4.5em;
   color: #FFF;
-}
-
-.subtitle-wrap {
-  height: 30px;
-  line-height: 30px;
-}
-
-.subtitle-wrap span {
-  display: inline-block;
-  color: #FFF;
-  height: 30px;
-  line-height: 30px;
-  margin-top: 0px;
-  margin-bottom: 5px;
-  font-size: 2em;
-}
-
-#subnote {
-  background-color: #bf131d;
-  font-size: 18px;
-  display: inline-block;
-  height: 35px;
-  line-height: 35px;
-  margin-top: 80px;
-  padding-left: 15px;
-  padding-right: 15px;
-  color: #FFF;
-  text-decoration: none;
-}
-
-div.col-xs-3 {
-  text-align: center;
-  padding-top: 15px;
 }
 
 @media all and (max-width: 768px) {
@@ -109,9 +91,5 @@ div.col-xs-3 {
 
   #title {
     margin-top: 150px;
-  }
-
-  #subnote {
-    margin-top: 50px;
   }
 }

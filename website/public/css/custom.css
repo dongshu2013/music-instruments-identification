@@ -97,7 +97,7 @@ Back to top button
     display: block;
     margin-bottom: 7px;
     margin-left: 40px;
-    background: #8B8970 url(up-arrow-2.png) no-repeat center center;
+    background: #8B8970 url("/images/up-arrow-2.png") no-repeat center center;
     /* rounded corners */
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;

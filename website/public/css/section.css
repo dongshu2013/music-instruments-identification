@@ -1,14 +1,26 @@
+#hello {
+  width: 100%;
+}
+
+#section1 {
+  margin-top: 20px;
+}
+
 .section {
   position: relative;
   width: 100%;
-  padding-top: 0px;
   padding-bottom: 100px;
   overflow: auto;
 }
 
-.section-title-wrap {
-  margin-top: 30px;
-  text-align: center;
+.odd-section {
+  background-color: #EEE;
+  overflow: auto
+}
+
+.even-section {
+  margin-top: 20px;
+  overflow: auto
 }
 
 .section-title {
@@ -19,7 +31,11 @@
 }
 
 .section-content {
+  width: 50%;
   margin-top: 50px;
+  margin-bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .bottom{

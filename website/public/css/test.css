@@ -1,46 +1,8 @@
-.nav-item a {
-  width: 50%;
-}
-
-#hello {
-  width: 100%;
-}
-
-#section-1 {
-  margin-top: 80px;
-  background-color: #EEE;
-  overflow: auto
-}
-
-#section-2 {
-  margin-top: 20px;
-  overflow: auto
-}
-
-.section-content {
-  width: 50%;
-  margin-bottom: 50px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#section-3 {
-  overflow: auto;
-  background-color: #DDD;
-}
-
-.content-wrapper {
-  margin-top: 100px;
-  width: 100%;
+#music {
   text-align: center;
-  height: auto;
-}
-
-.content-wrapper h4 {
-  font-family: "Verdana";
-  font-size: 15px;
-  margin-bottom: 0px;
-  color: #000
+  margin-top: 30px;
+  width: 400px;
+  display: none;
 }
 
 #music-form {
@@ -88,20 +50,9 @@
   text-align: center;
 }
 
-#music {
-  text-align: center;
-  margin-top: 30px;
-  width: 400px;
-  display: none;
-}
-
 #ajax-waiter {
   text-align: center;
   width: 100%;
   margin-top: 30px;
   display: none;
-}
-
-#content {
-  font-size: 1em;
 }

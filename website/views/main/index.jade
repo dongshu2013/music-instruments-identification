@@ -5,23 +5,31 @@ block custom-assets
 
 block top-navbar
   div#top-nav-bar
-    div.nav-logo.col-md-2.col-sm-2.col-xs-2
+    div.nav-logo.col-md-1.col-sm-2.col-xs-9
       img#logo-image(src="/images/favicon.png")
-    div.nav-item.col-xs-2.col-sm-2.col-xs-2
+    div.nav-item.col-md-2.col-sm-2.col-xs-9
       a(href="#", onclick="$('#section-1').animatescroll({padding:80});") Introduction
-    div.nav-item.col-md-2.col-sm-2.col-xs-2
-      a(href="#", onclick="$('#section-2').animatescroll({padding:80});") Progress
-    div.nav-item.col-md-2.col-sm-2.col-xs-2
-      a(href="#", onclick="$('#section-3').animatescroll({padding:80});") Try it out!
-    div.nav-logo.col-xs-4
+    div.nav-item.col-md-2.col-sm-2.col-xs-9
+      a(href="#", onclick="$('#section-2').animatescroll({padding:80});") Descriotion
+    div.nav-item.col-md-2.col-sm-2.col-xs-9
+      a(href="#", onclick="$('#section-3').animatescroll({padding:80});") Features
+    div.nav-item.col-md-2.col-sm-2.col-xs-9
+      a(href="#", onclick="$('#section-4').animatescroll({padding:80});") Classification
+    div.nav-item.col-md-2.col-sm-2.col-xs-9
+      a(href="#", onclick="$('#section-5').animatescroll({padding:80});") Conclusion
+    div.nav-item.col-md-1.col-sm-2.col-xs-9
+      a(href="#", onclick="$('#section-6').animatescroll({padding:80});") Try it out!
 
 block header
 
 block content
   div#hello
-    include sections/server-client
-    include sections/progress
-    include sections/online-test
+    include sections/introduction
+    include sections/description
+    include sections/features
+    include sections/classification
+    include sections/conclusion
+    include sections/test
   p#back-top
     span
       a(href="#top", onclick="$('body').animatescroll()")
