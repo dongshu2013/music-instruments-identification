@@ -1,6 +1,7 @@
 var fs = require('fs');
 var formidable = require('formidable');
 var url = require('url');
+var exec = require('child_process').exec, child;
 
 exports.uploadFile = function(req, res, callback) {
   var form = new formidable.IncomingForm();
@@ -45,7 +46,26 @@ exports.analyze = function(name, req, res, callback) {
   var stat = fs.statSync(filePath);
 
   //do analyzation here
-
+  //extract features
+//  exec('python extractMFCC.py',
+//    function (error, stdout, stderr) {
+//        console.log('stdout: ' + stdout);
+//        console.log('stderr: ' + stderr);
+//        if (error !== null) {
+//             console.log('exec error: ' + error);
+//        }
+//    })();
+//
+//  //classify
+//  exec('python classify.py',
+//    function (error, stdout, stderr) {
+//        console.log('stdout: ' + stdout);
+//        console.log('stderr: ' + stderr);
+//        if (error !== null) {
+//             console.log('exec error: ' + error);
+//        }
+//    })();
+//
   result = ['bell', 'paino'];
   res.writeHead(200, {'content-type': 'text/plain'});
   res.end(result.join());
