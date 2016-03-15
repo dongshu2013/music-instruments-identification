@@ -5,6 +5,7 @@
 
 import IPython, numpy as np, scipy as sp, matplotlib.pyplot as plt, matplotlib, sklearn, librosa, cmath,math
 import pickle, os
+import sys
 from sklearn.externals import joblib
 from sklearn.svm import SVC, LinearSVC
 
@@ -21,16 +22,12 @@ def preprocess():
 
     mean_ = np.mean(X, axis = 0)
     std_ = np.std(X, axis = 0)
-    
+
     np.savez('mfcc_dim10x39_stat.npz', mean=mean_, std = std_)
 
     classifier = sklearn.multiclass.OneVsRestClassifier(SVC(kernel='rbf', class_weight=None, probability=True))
-
     model =classifier.fit(znorm(x_train, mean_, std_), y_train)
-
-    joblib.dump(model, './models/rbfSVM_dim390_model.pkl') 
-
-
+    joblib.dump(model, './models/rbfSVM_dim390_model.pkl')
 
 def znorm(m, means, stds):
     ncols = len(means)
@@ -42,27 +39,21 @@ def znorm(m, means, stds):
 
 
 def extract_mfcc(filepath, order = 1, hop_size = 1024, waittime = 0.2, note_duration = 0.3, note_frames = 10):
-    
     mfcc_feature = []
-    
-                        
     filename, file_extension = os.path.splitext(filepath.strip())
     path, name = os.path.split(filename)
     if not (file_extension == ".mp3" or file_extension == ".wav" or file_extension == ".aif" or file_extension == ".aiff"):
         return None
-
 
     if not os.path.exists(filepath):
         print apath, "Error path"
         return None
 
     sig,sr = librosa.load(filepath,sr = 44100)
-    
-    # note onset dectection
-    waitframe = waittime * sr / hop_size            
-    onset_frames = librosa.onset.onset_detect(sig, sr=sr, hop_length = hop_size, delta=0.1, wait = waitframe)
 
-    print onset_frames
+    # note onset dectection
+    waitframe = waittime * sr / hop_size
+    onset_frames = librosa.onset.onset_detect(sig, sr=sr, hop_length = hop_size, delta=0.1, wait = waitframe)
 
     n_frame = note_duration * sr // hop_size
     skip_frames = np.ceil(n_frame / note_frames)
@@ -92,28 +83,20 @@ def extract_mfcc(filepath, order = 1, hop_size = 1024, waittime = 0.2, note_dura
             continue
         mfcc_feature.append(feature.flatten())
 
-
-    print "Feature dimension", np.matrix(mfcc_feature).shape         
-            
     return np.array(mfcc_feature)
-
-
 # In[108]:
 
 def predict_instrument(filename, model, normfile=None, instruments = ['Sax', 'Piano', 'Violin', 'Flute','Guitar'], prob = True):
     mfcc = extract_mfcc(filename, order = 3, hop_size = 1024, waittime = 0.2, note_duration = 0.3, note_frames = 10)
-    classfier = joblib.load(model)
+    classifier = joblib.load(model)
 
-
-    if normfile == None:
-        
+    if normfile is not None:
         stat = np.load(normfile)
         mean = stat['mean']
         std = stat['std']
         mfcc = znorm(mfcc, mean_, std_)
     else:
         mfcc = sklearn.preprocessing.scale(mfcc)
-    
     if prob:
         prob = classifier.predict_proba(mfcc)
         mean_prob = np.mean(prob, axis = 0)
@@ -125,17 +108,14 @@ def predict_instrument(filename, model, normfile=None, instruments = ['Sax', 'Pi
         counts = np.bincount(labels)
         label = instruments[np.argmax(counts)]
         return labels, label
-    
-    
-if __name__ == "__main__":
 
-      
+def main():
     if len(sys.argv) <= 1:
         print "No Input Music File!"
         return None
-    
+
     audio_path = sys.argv[1]
-    
+
     if len(sys.argv) > 2:
         model = sys.argv[2]
     else:
@@ -150,6 +130,6 @@ if __name__ == "__main__":
     predicts, label = predict_instrument(audio_path, model, normfile, instruments= labels, prob=True)
     return label
 
-
-
-
+if __name__ == "__main__":
+    label = main()
+    print label

@@ -167,14 +167,19 @@ def main():
     x_test = np.array(data['features'])
     y_test = np.array(data['labels'])
 
-    features = np.concatenate((x_train, x_test))
-    features = normalize(features)
-    x_train = features[:x_train.shape[0]]
-    x_test = features[x_train.shape[0]:]
+    feature = np.concatenate((x_train, x_test));
+    feature = normalize(feature)
 
-#    #PCA
-#    pca = PCA(n_components = 390)
-#    x_train = pca.fit_transform(x_train)
+    #PCA
+    pca = PCA(n_components = 390)
+    feature = pca.fit_transform(feature)
+    feature = normalize(feature)
+
+    x_train = feature[:x_train.shape[0]]
+    x_test = feature[x_train.shape[0]:]
+
+    print x_train.shape
+    print x_test.shape
 #
 #    labels = np.concatenate((y_train, y_test))
 #    for l in labels:

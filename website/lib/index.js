@@ -43,30 +43,19 @@ exports.streamAudio = function(name, req, res, callback) {
 
 exports.analyze = function(name, req, res, callback) {
   var filePath = __dirname + "/../public/music/" + name;
+  var codePath = __dirname + "/../../code/IdentifyingInstrument.py";
+  var modelPath = __dirname + "/../../code/models/rbfSVM_dim390_model.pkl";
   var stat = fs.statSync(filePath);
 
-  //do analyzation here
-  //extract features
-//  exec('python extractMFCC.py',
-//    function (error, stdout, stderr) {
-//        console.log('stdout: ' + stdout);
-//        console.log('stderr: ' + stderr);
-//        if (error !== null) {
-//             console.log('exec error: ' + error);
-//        }
-//    })();
-//
-//  //classify
-//  exec('python classify.py',
-//    function (error, stdout, stderr) {
-//        console.log('stdout: ' + stdout);
-//        console.log('stderr: ' + stderr);
-//        if (error !== null) {
-//             console.log('exec error: ' + error);
-//        }
-//    })();
-//
-  result = ['bell', 'paino'];
-  res.writeHead(200, {'content-type': 'text/plain'});
-  res.end(result.join());
+  var child = exec('python '+ codePath + ' ' + filePath + ' ' + modelPath,
+    function (error, stdout, stderr) {
+        console.log('stdout: ' + stdout);
+        result = stdout;
+        res.writeHead(200, {'content-type': 'text/plain'});
+        res.end(result);
+        console.log('stderr: ' + stderr);
+        if (error !== null) {
+             console.log('exec error: ' + error);
+        }
+    });
 }

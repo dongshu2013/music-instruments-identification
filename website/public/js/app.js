@@ -44,6 +44,7 @@ $(document).ready(function () {
       processData: false,
       data: formData,
     }).done(function(data, status) {
+      console.log(data)
       $('#ajax-waiter').hide();
       $("#music").css("display","inline");
       $("#analyze").show();
