@@ -173,9 +173,8 @@ def main():
     x_test = features[x_train.shape[0]:]
 
 #    #PCA
-#    features = np.concatenate((x_train, x_test))
-#    pca = PCA(n_components = 130)
-#    features = normalize(pca.fit_transform(features))
+#    pca = PCA(n_components = 390)
+#    x_train = pca.fit_transform(x_train)
 #
 #    labels = np.concatenate((y_train, y_test))
 #    for l in labels:
