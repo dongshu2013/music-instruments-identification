@@ -13,7 +13,7 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 import argparse
 from models import Models
 from functools import reduce
-from load_features import load_features
+from load_features import load_train, load_test
 
 #parser = argparse.ArgumentParser(description='Used to training features.')
 #parser.add_argument('--feature', metavar='F', nargs=1, help='specify file containing feature matrix')
@@ -63,8 +63,7 @@ def train(models, x_train, y_train):
         train_result.append(meta)
     return train_result
 
-
-def print_meta(train_result):
+def print_train_result(train_result):
     mean = {}
     for meta in train_result:
         print("------------------------------")
@@ -94,6 +93,22 @@ def print_meta(train_result):
     print_mean(mean)
 
 
+def print_test_result(meta):
+    for m in meta.keys():
+        print(m)
+        print("****")
+        print("Report:")
+        print(meta[m]['report'])
+        print("Accuracy:")
+        print(meta[m]['accuracy'])
+        print("Precision:")
+        print(meta[m]['precision'])
+        print("Recall:")
+        print(meta[m]['recall'])
+        print("F-Score:")
+        print(meta[m]['fscore'])
+
+
 def print_mean(m):
     for key, value in m.items():
         for metric, seq in value.items():
@@ -115,10 +130,10 @@ def test(models, x_train, y_train, x_test, y_test):
     return test_result
 
 
-def run(x_train, x_test, y_train, y_test, models):
+def run(models, x_train, x_test, y_train, y_test):
     train_result = train(models, x_train, y_train)
     test_result = test(models, x_train, y_train, x_test, y_test)
-    print_meta(test_result)
+    print_test_result(test_result)
 #    for meta in train_result:
 #        print "------------------------------"
 #        print_meta(meta)
@@ -141,17 +156,17 @@ def normalize(features):
 
 
 def main():
-    model_names = ["nb", "svm",  "lsvm", "lr"]
+    model_names = ["nb", "svm",  "lsvm", "lr", "psvm"]
     models = Models(model_names)
 
-#    data = np.load("../feature/mfcc/mfcc_dim10x13.train.npz")
-#    features = np.array(data['mfcc_features'])
-#    x_train, y_train = feature_label(features)
-#
-#    data = np.load("../feature/mfcc/mfcc_dim10x13.test.npz")
-#    features = np.array(data['mfcc_features'])
-#    x_test, y_test = feature_label(features)
-#
+    data = np.load("../feature/mfcc/mfcc_dim10x26_training_norm.npz")
+    x_train = normalize(np.array(data['features']))
+    y_train = np.array(data['labels'])
+
+    data = np.load("../feature/mfcc/mfcc_dim10x26_test_norm.npz")
+    x_test = normalize(np.array(data['features']))
+    y_test = np.array(data['labels'])
+
 #    #PCA
 #    features = np.concatenate((x_train, x_test))
 #    pca = PCA(n_components = 130)
@@ -165,16 +180,14 @@ def main():
     #features = np.concatenate((x_train, x_test))
     #lda = LinearDiscriminantAnalysis()
     #features = normalize(lda.fit_transform(features, labels))
-    features = load_features()
-    print features.shape
-    print features
-    x_test, y_test = feature_label(features)
-    print x_test.shape
-    print y_test.shape
+
+#    x_train, y_train = feature_label(load_train())
+#    x_test, y_test = feature_label(load_test())
+    test_result = test(models, x_train, y_train, x_test, y_test)
+    print_test_result(test_result)
 
 #    train_result = train(models, features, labels)
-#    print_meta(train_result)
-#    print(features.shape)
+#    print_train_result(train_result)
 
 if __name__ == "__main__":
     main()

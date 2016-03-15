@@ -29,6 +29,11 @@ class Models():
                 return OneVsRestClassifier(LinearSVC(random_state=0))
             else:
                 return LinearSVC(random_state=0)
+        elif name == "psvm":
+            if multiclass:
+                return OneVsRestClassifier(SVC(random_state=0, kernel='poly', degree=4))
+            else:
+                return SVC(random_state=0, kernel='poly', degree=4)
 
 
     def model_names(self):
