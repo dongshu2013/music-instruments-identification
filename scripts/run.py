@@ -171,9 +171,9 @@ def main():
     feature = normalize(feature)
 
     #PCA
-    pca = PCA(n_components = 390)
-    feature = pca.fit_transform(feature)
-    feature = normalize(feature)
+    #pca = PCA(n_components = 390)
+    #feature = pca.fit_transform(feature)
+    #feature = normalize(feature)
 
     x_train = feature[:x_train.shape[0]]
     x_test = feature[x_train.shape[0]:]
