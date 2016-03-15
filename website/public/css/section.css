@@ -19,13 +19,18 @@
 }
 
 .section-content {
-  width: 50%;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  margin-left: auto;
-  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-.text-content {
+p.text-content {
+  white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  white-space: pre-wrap;       /* css-3 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+  white-space: -webkit-pre-wrap; /* Newer versions of Chrome/Safari*/
+  white-space: normal;
   font-size: 1em;
+  color: #000;
 }

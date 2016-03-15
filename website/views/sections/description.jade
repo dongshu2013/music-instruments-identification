@@ -1,8 +1,18 @@
 div#section-2.even-section
-  div.section-content.col-md-offset-4
-    h3.section-title System Description
-    p.text-content Basically, the system's work consists of two phases: model generation and identifying instruments, of which only the later is facing to users.
-    h3.section-title Measure used to evaluate performance
-    p.text-content We will use Precision, Recall and Fscore as measures to evaluate the performance of our system.
-    h3.section-title Dataset
-    p.text-content We will split the MIS dataset from University of Iowa (http://theremin.music.uiowa.edu/MIS.html) to two parts, as train and test data.
+  div
+    div.col-md-1
+    div.section-content.col-md-10
+      p.text-content Basically, the system's work consists of two phases: model generation and identifying instruments, of which only the later is facing to users.
+      div.feature.col-md-4
+        h4 Model Generation
+        p.text-content In generating model phase, we passed a lot of music samples of each kind of instruments to the system, then the system extracted proper features from each piece of music to generate discriminative models for these instrument.
+      div.feature.col-md-1
+      div.feature.col-md-6
+        h4 Identifying Instruments
+        p.text-content In identifying phase, user will pass a music file to the system. The music file should contain a solo of some music. Then the system segmented the signal into fixed length, tract features from each segment and make a prediction using pre-generated model in back end. At last, the system told user what the instrument is for the input music.
+    div.col-md-1
+  div
+    div.col-md-3
+    div.col-md-5
+      div#system
+    div.col-md-4

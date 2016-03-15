@@ -10,15 +10,13 @@ block top-navbar
     div.nav-item.col-md-2.col-sm-2.col-xs-9
       a(href="#", onclick="$('#section-1').animatescroll({padding:50});") Introduction
     div.nav-item.col-md-2.col-sm-2.col-xs-9
-      a(href="#", onclick="$('#section-2').animatescroll({padding:50});") Description
+      a(href="#", onclick="$('#section-2').animatescroll({padding:50});") System Description
     div.nav-item.col-md-2.col-sm-2.col-xs-9
       a(href="#", onclick="$('#section-3').animatescroll({padding:50});") Features
     div.nav-item.col-md-2.col-sm-2.col-xs-9
       a(href="#", onclick="$('#section-4').animatescroll({padding:50});") Classification
-    div.nav-item.col-md-2.col-sm-2.col-xs-9
-      a(href="#", onclick="$('#section-5').animatescroll({padding:50});") Conclusion
-    div.nav-item.col-md-1.col-sm-2.col-xs-9
-      a(href="#", onclick="$('#section-6').animatescroll({padding:50});") Try it out!
+    div.nav-item.col-md-3.col-sm-2.col-xs-9
+      a(href="#", onclick="$('#section-5').animatescroll({padding:50});") Try
 
 block header
 
@@ -29,7 +27,6 @@ block content
     include sections/description
     include sections/features
     include sections/classification
-    include sections/conclusion
     include sections/test
   p#back-top
     span

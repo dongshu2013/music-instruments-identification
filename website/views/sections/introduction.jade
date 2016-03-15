@@ -1,4 +1,46 @@
 div#section-1.odd-section
-  div.section-content
-    h3.section-title Why is interesting
-    p.textcontent Musical Instrument Identification is not only an interesting topic, but also has widely use in daily life. Firstly, it will help music engines to deal better with queries on specific music. Secondly, for those people who are not an expert in recognizing instruments’ sound, but curious about which instrument a music is played by, an automatic instrument identification system will definitely satisfying them. Furthermore, it may contribute a lot to other musical information processing problem.
+  div.col-md-1
+  div#audio-samples.col-md-4
+    div#sample-title
+      h3 Samples
+    div.audio-sample
+      p Sax
+      div.holder
+        audio(controls)
+          source#music-source(src="/music/sample1.wav" type="audio/wav")
+          Your browser does not support the audio element.
+    div.audio-sample
+      p Guitar
+      div.holder
+        audio(controls)
+          source#music-source(src="/music/sample2.wav" type="audio/wav")
+          Your browser does not support the audio element.
+    div.audio-sample
+      p Flute
+      div.holder
+        audio(controls)
+          source#music-source(src="/music/sample3.wav" type="audio/wav")
+          Your browser does not support the audio element.
+    div.audio-sample
+      p Piano
+      div.holder
+        audio(controls)
+          source#music-source(src="/music/sample4.wav" type="audio/wav")
+          Your browser does not support the audio element.
+    div.audio-sample
+      p Violin
+      div.holder
+        audio(controls)
+          source#music-source(src="/music/sample5.wav" type="audio/wav")
+          Your browser does not support the audio element.
+
+  div.section-content.col-md-6
+    p.text-content
+      span Musical Instrument Identification
+    p.text-content is not only an interesting topic, but also has widely use in daily life.
+    ul
+      li It will help music engines to deal better with queries on specific music.
+      li For those people who are not an expert in recognizing instruments' sound, but curious about which instrument a music is played by, an automatic instrument identification system will definitely satisfying them.
+      li It may contribute a lot to other musical information processing problem. For example, genre classification.
+    p.text-content Therefore, we developed the Musical Instrument Identification System. The Musical Instrument System is to identify the instrument in solo music.
+  div.col-md-1

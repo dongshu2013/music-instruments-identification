@@ -1,11 +1,16 @@
 div#section-4.even-section
-  div.section-content.col-md-offset-4
-    h3.section-title Steps and Progress
-    p.text-content Step 1. We use MFCC as features, and we use PCA and LDA to optimize the features. (Done)
-    p.text-content Step 2. We use SVM and Cross-classification (so on) to do classification. (On-Going)
-    p.text-content Step 3. We use F-scores, prediction, and recall to measure the classification result. (To be done)
-    h3.section-title Optional Steps
-    p.text-content If time is enough, we may process the following steps.
-    p.text-content 3. We will use PCA or LDA algorithm to optimize our features.
-    p.text-content 4. We will use more classifier models and compare their performance.
-    p.text-content 5. We could try to identify the predominant instrument in polyphonic music based on the content system. To be specific, we may use some software like FASST to separate music to substreams and then identify the substream.
+  div.section-wrapper.col-md-6
+    p.text-content We tested following five models as our classifiers with three different mfcc dimensions as our features to see which one performs best.
+    ul
+      li SVM with Polynomial Kernel
+      li SVM with RBF Kernel
+      li SVM with Linear Kernel
+      li Logistic Regression
+      li Naïve Bayes
+  div.col-md-6
+    img#test(src="/images/test.png")
+  div.figures.col-md-12
+    div.figure
+      img#mfcc(src="/images/MFCC.png")
+    div.figure
+      img#models(src="/images/models.png")

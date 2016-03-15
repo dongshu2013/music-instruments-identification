@@ -1,0 +1,32 @@
+#section-3 {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+#section-3 ul {
+  padding-left: 0px;
+  list-style-position: inside;
+}
+
+ul li {
+  color: #000;
+}
+
+#feature-extraction {
+  max-width:100%;
+  max-height:100%;
+  padding-top: 10px;
+}
+
+#feature2 {
+  max-width:100%;
+  max-height:100%;
+  padding-top: 20px;
+}
+
+#pca {
+  max-width:100%;
+  max-height:100%;
+  padding-top: 10px;
+  height: 320px;
+}

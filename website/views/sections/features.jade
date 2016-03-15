@@ -1,11 +1,17 @@
 div#section-3.odd-section
-  div.section-content.col-md-offset-4
-    h3.section-title Steps and Progress
-    p.text-content Step 1. We use MFCC as features, and we use PCA and LDA to optimize the features. (Done)
-    p.text-content Step 2. We use SVM and Cross-classification (so on) to do classification. (On-Going)
-    p.text-content Step 3. We use F-scores, prediction, and recall to measure the classification result. (To be done)
-    h3.section-title Optional Steps
-    p.text-content If time is enough, we may process the following steps.
-    p.text-content 3. We will use PCA or LDA algorithm to optimize our features.
-    p.text-content 4. We will use more classifier models and compare their performance.
-    p.text-content 5. We could try to identify the predominant instrument in polyphonic music based on the content system. To be specific, we may use some software like FASST to separate music to substreams and then identify the substream.
+  div.col-md-1
+  div.section-content.col-md-4
+    h3 Feature Extraction
+    p.text-content In our system we used Mel-frequency Cepstrum Coefficients (MFCC) as our main features.
+    ul
+      li.text-content we detect each note of the whole file. we achieve this by using the librosa in python.
+      li.text-content we choose 10 frames from the beginning of each note and compute a 13-dimensional MFCC feature from each frames. Since the sample rate is 44100, the hop-size is 1024, and the window-size is 2048. There will be 50 percent overlap of each chosen frame.
+      li.text-content After unrolling the MFCC feature of each note and normalization, we develop our feature matrix, of which every sample has 130 dimensions. We choose data from five instruments: violin, guitar, piano, flute, and sax.
+      li.text-content We also computed first and second derivatives of MFCCs, of which the feature dimension for one note would be 260 and 390
+    img#feature-extraction(src="/images/feature.png")
+    img#feature2(src="/images/feature2.png")
+  div.section-content.col-md-6
+    h3 Feature Optimization
+    p.text-content Since we intend to make it a real-time system, thus we must take the running time of our algorithm into our consideration. The original MFCC feature we extracted is of quite high dimensions, which will definitely increase the computations comparing to lower dimensional features. That's why we used PCA to reduce the dimension and optimize our features. We tried the dimension of 130, 50 and 20 to do the data optimization.
+    p.text-content In following Figure we show the eigen-values of features matrix, which are exactly corresponding to the weights of each dimension of features after PCA analysis. As we can see, the first some dimensions already centralizes most of the weights. According to the experiments we finally choose 50 dimensional features in our system.
+    img#pca(src="/images/pca.png")

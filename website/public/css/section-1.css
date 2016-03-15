@@ -1,0 +1,47 @@
+#section-1 {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+#section-1 .section-content {
+  text-align: left;
+}
+
+#section-1 span {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+#section-1 ul {
+  list-style-position: inside;
+  padding: 0px;
+}
+
+#section-1 h3 {
+  color: #000;
+}
+
+#audio-samples {
+  display: table;
+}
+
+#sample-title {
+  display: table-row;
+  text-align: right;
+}
+
+.audio-sample {
+  display: table-row;
+  text-align: center;
+}
+
+.audio-sample p {
+  display: table-cell;
+  vertical-align: middle;
+  color: #000;
+}
+
+.audio-sample.holder {
+  display: table-cell;
+  vertical-align: middle;
+}
