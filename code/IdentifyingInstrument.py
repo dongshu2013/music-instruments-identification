@@ -105,7 +105,7 @@ def predict_instrument(filename, model, normfile=None, instruments = ['Sax', 'Pi
     classfier = joblib.load(model)
 
 
-    if normfile == None:
+    if normfile != None:
         
         stat = np.load(normfile)
         mean = stat['mean']
