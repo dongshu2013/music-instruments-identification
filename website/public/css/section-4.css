@@ -42,9 +42,9 @@ ul li {
   text-align: left;
   height: 250px;
   border-right-style: solid;
-  border-right-width: 1px;
+  border-right-width: 10px;
   border-bottom-style: solid;
-  border-bottom-width: 1px;
+  border-bottom-width: 10px;
 }
 
 .figures {
