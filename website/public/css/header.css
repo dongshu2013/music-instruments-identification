@@ -10,9 +10,10 @@
 
 .nav-item {
   padding: 0px;
+  background-color: #DDD;
   border-left-style: solid;
-  border-left-color: #EEE;
   border-left-width: 1px;
+  border-left-color: #FFF;
   text-align: center;
   position: relative;
   height: 50px;
@@ -45,10 +46,14 @@
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 40px;
+  background-color: #DDD;
+  border-bottom-color: #FFF;
+  border-bottom-width: 1px;
 }
 
 #logo-image {
   height: 40px;
+  background-color: #DDD;
 }
 
 #image-header {

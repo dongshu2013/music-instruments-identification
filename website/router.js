@@ -8,7 +8,7 @@ router.use(function(req, res, next) {
 });
 
 router.get('/', function(req, res, next){
-  res.render('main/index', {
+  res.render('index', {
     title: "Music Instrument Indentification"
   });
 });
