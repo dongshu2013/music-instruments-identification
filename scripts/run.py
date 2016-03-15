@@ -150,7 +150,7 @@ def feature_label(features):
 
 def normalize(features):
     nm = Normalizer()
-    min_max_scaler = MinMaxScaler()
+    min_max_scaler = MinMaxScaler(feature_range=(0, 10))
     features = nm.fit_transform(features)
     return min_max_scaler.fit_transform(features)
 
@@ -159,13 +159,18 @@ def main():
     model_names = ["nb", "svm",  "lsvm", "lr", "psvm"]
     models = Models(model_names)
 
-    data = np.load("../feature/mfcc/mfcc_dim10x26_training_norm.npz")
-    x_train = normalize(np.array(data['features']))
+    data = np.load("../feature/mfcc_note0.3s_patch/mfcc_dim10x39_training.npz")
+    x_train = np.array(data['features'])
     y_train = np.array(data['labels'])
 
-    data = np.load("../feature/mfcc/mfcc_dim10x26_test_norm.npz")
-    x_test = normalize(np.array(data['features']))
+    data = np.load("../feature/mfcc_note0.3s_patch/mfcc_dim10x39_test.npz")
+    x_test = np.array(data['features'])
     y_test = np.array(data['labels'])
+
+    features = np.concatenate((x_train, x_test))
+    features = normalize(features)
+    x_train = features[:x_train.shape[0]]
+    x_test = features[x_train.shape[0]:]
 
 #    #PCA
 #    features = np.concatenate((x_train, x_test))
